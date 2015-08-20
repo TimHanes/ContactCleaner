@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactCleaner", "ContactCleaner\ContactCleaner.csproj", "{0F5B3FFB-0B19-46F0-B883-937108BC59B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactCleaner.UITests", "ContactCleaner.UITests\ContactCleaner.UITests.csproj", "{693DD932-963D-4AA2-8D03-2ACA1B878C11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F5B3FFB-0B19-46F0-B883-937108BC59B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5B3FFB-0B19-46F0-B883-937108BC59B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5B3FFB-0B19-46F0-B883-937108BC59B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5B3FFB-0B19-46F0-B883-937108BC59B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{693DD932-963D-4AA2-8D03-2ACA1B878C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{693DD932-963D-4AA2-8D03-2ACA1B878C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{693DD932-963D-4AA2-8D03-2ACA1B878C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{693DD932-963D-4AA2-8D03-2ACA1B878C11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
