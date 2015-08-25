@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{0F5B3FFB-0B19-46F0-B883-937108BC59B2}</ProjectGuid>
+    <ProjectGuid>{35EA4AB8-6767-4B0D-81F5-38E059D7A2ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>ContactCleaner</RootNamespace>
     <AndroidApplication>True</AndroidApplication>
@@ -42,42 +42,42 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
-    <Reference Include="Xamarin.Android.Support.v13">
-      <HintPath>..\packages\Xamarin.Android.Support.v13.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\packages\Xamarin.Android.Support.v4.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v4.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.20.0.0.2\lib\MonoAndroid10\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="popup.cs" />
-    <Compile Include="MHandler.cs" />
-    <Compile Include="contactsWorkRunnable.cs" />
-    <Compile Include="Dlstcancel.cs" />
-    <Compile Include="Lstbtnigt.cs" />
-    <Compile Include="Lstbtndel.cs" />
-    <Compile Include="Lstbtnjoin.cs" />
+    <Compile Include="Popup.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="ProgressShower.cs" />
+    <Compile Include="ContactsHandler.cs" />
+    <Compile Include="MessageHandler.cs" />
+    <Compile Include="Models\Options.cs" />
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Components\ActionType.cs" />
+    <Compile Include="Components\MessageType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\drawable-mdpi\cell_shape.xml" />
+    <AndroidResource Include="Resources\layout\Popup.axml" />
   </ItemGroup>
+  <Import Project="..\ContactCleaner.Core\ContactCleaner.Core.projitems" Label="Shared" Condition="Exists('..\ContactCleaner.Core\ContactCleaner.Core.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Resources\layout\" />
+    <Folder Include="Models\" />
+    <Folder Include="Components\" />
+  </ItemGroup>
 </Project>

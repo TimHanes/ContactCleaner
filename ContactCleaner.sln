@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactCleaner", "ContactCleaner\ContactCleaner.csproj", "{0F5B3FFB-0B19-46F0-B883-937108BC59B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactCleaner", "ContactCleaner\ContactCleaner.csproj", "{35EA4AB8-6767-4B0D-81F5-38E059D7A2ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactCleaner.UITests", "ContactCleaner.UITests\ContactCleaner.UITests.csproj", "{693DD932-963D-4AA2-8D03-2ACA1B878C11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactCleaner.UITests", "ContactCleaner.UITests\ContactCleaner.UITests.csproj", "{3F020883-C3BA-454A-A88F-09FD7F2ECE4B}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ContactCleaner.Core", "ContactCleaner.Core\ContactCleaner.Core.shproj", "{5C095C92-80BB-4674-9209-590DB238F11B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +13,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0F5B3FFB-0B19-46F0-B883-937108BC59B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F5B3FFB-0B19-46F0-B883-937108BC59B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F5B3FFB-0B19-46F0-B883-937108BC59B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F5B3FFB-0B19-46F0-B883-937108BC59B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{693DD932-963D-4AA2-8D03-2ACA1B878C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{693DD932-963D-4AA2-8D03-2ACA1B878C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{693DD932-963D-4AA2-8D03-2ACA1B878C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{693DD932-963D-4AA2-8D03-2ACA1B878C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35EA4AB8-6767-4B0D-81F5-38E059D7A2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35EA4AB8-6767-4B0D-81F5-38E059D7A2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35EA4AB8-6767-4B0D-81F5-38E059D7A2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35EA4AB8-6767-4B0D-81F5-38E059D7A2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F020883-C3BA-454A-A88F-09FD7F2ECE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F020883-C3BA-454A-A88F-09FD7F2ECE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F020883-C3BA-454A-A88F-09FD7F2ECE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F020883-C3BA-454A-A88F-09FD7F2ECE4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
