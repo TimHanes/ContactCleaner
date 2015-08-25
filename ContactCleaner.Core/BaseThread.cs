@@ -6,20 +6,17 @@ namespace ContactCleaner.Core
 	public class BaseThread {
 		private Thread m_thread;
 		AutoResetEvent autoEvent;
-		private object mPauseLock = new object();
-		private bool mPaused = false;
 
 		public BaseThread() {
 			autoEvent = new AutoResetEvent(false);
 			m_thread = new Thread( Run );
 		}
 
-		public bool IsPaused
-		{
-			get{ 
-				return mPaused;
+		public ThreadState IsThreadState {
+			get { 
+				return m_thread.ThreadState;
 			}
-		} 
+		}
 
 		public void Start() {
 			m_thread.Start();
@@ -33,36 +30,11 @@ namespace ContactCleaner.Core
 			autoEvent.Set();
 		}
 
-		public void OnPause() 
+		protected virtual void Run()
 		{
-			lock(mPauseLock)
-			{
-				mPaused = true;
-			}
-		}
-		//		 * Call this on resume.
-
-		public void OnResume() {
-			lock(mPauseLock) {
-				mPaused = false;
-
-			}
-		}
-
-		protected virtual void Run(){
-			lock(mPauseLock) 
-			{
-				while(mPaused) 
-				{
-					try 
-					{
-						this.Pause();
-					} 
-					catch(System.Exception e) 
-					{				
-					}
-				}
-			}
+//			autoEvent.WaitOne();
+			Thread.Sleep (50);
+			autoEvent.Set();
 		}
 	}
 }

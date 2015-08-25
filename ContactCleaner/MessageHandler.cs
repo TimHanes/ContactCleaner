@@ -82,7 +82,6 @@ namespace ContactCleaner
 				App.Current.Popup.MsgBoxClose();
 				_contactsHandler.ContactDelete(
 					_contactsHandler.FoundUri[_contactsHandler.currentContactIndex]);
-				_contactsHandler.OnResume();
 				_contactsHandler.Resume();
 			};
 
@@ -90,14 +89,12 @@ namespace ContactCleaner
 				App.Current.Popup.MsgBoxClose();
 				_contactsHandler.ContactJoin (
 					_contactsHandler.FoundUri [_contactsHandler.currentContactIndex]);
-				_contactsHandler.OnResume();
 				_contactsHandler.Resume();
 			};
 
 			EventHandler _onButtonIgnore = delegate {
 				App.Current.Popup.MsgBoxClose();
 				_contactsHandler.ContactIgnore();
-				_contactsHandler.OnResume();
 				_contactsHandler.Resume();
 			};
 

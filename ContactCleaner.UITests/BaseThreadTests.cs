@@ -6,6 +6,7 @@ using Xamarin.UITest;
 using Xamarin.UITest.Android;
 using Xamarin.UITest.Queries;
 using ContactCleaner.Core;
+using System.Threading;
 
 namespace ContactCleaner.UITests
 {
@@ -14,6 +15,8 @@ namespace ContactCleaner.UITests
 	{
 		//AndroidApp app;
 		BaseThread testThread;
+		ThreadState _state1;
+		ThreadState _state2;
 
 		[SetUp]
 		public void BeforeEachTest ()
@@ -27,10 +30,15 @@ namespace ContactCleaner.UITests
 			// Arrange
 
 			// Act
-			testThread.OnPause();
+			testThread.Start();
+			_state1 = testThread.IsThreadState;
+			Thread.Sleep (500);
+			_state2 = testThread.IsThreadState;
+		
 
 			// Assert
-			Assert.AreEqual(true, testThread.IsPaused);
+			Assert.AreEqual(ThreadState.WaitSleepJoin, _state1);
+			Assert.AreEqual(ThreadState.Stopped, _state2);
 		}
 
 		[Test]
@@ -39,11 +47,36 @@ namespace ContactCleaner.UITests
 			// Arrange
 
 			// Act
-			testThread.OnResume();
+			testThread.Start();
+//			testThread.Pause ();
+			testThread.Resume ();
+			_state1 = testThread.IsThreadState;
+			Thread.Sleep (500);
+			_state2 = testThread.IsThreadState;
 
 			// Assert
-			Assert.AreEqual(false, testThread.IsPaused);
+			Assert.AreEqual(ThreadState.WaitSleepJoin, _state1);
+			Assert.AreEqual(ThreadState.Stopped, _state2);
 		}
+
+		[Test]
+		public void OnStartShouldExecutedThreadAndInEndOnPause ()
+		{
+			// Arrange
+
+			// Act
+			testThread.Start();
+			testThread.Pause ();
+			_state1 = testThread.IsThreadState;
+			testThread.Resume ();
+			Thread.Sleep (500);
+			_state2 = testThread.IsThreadState;
+
+			// Assert
+			Assert.AreEqual(ThreadState.Running, _state1);
+			Assert.AreEqual(ThreadState.Stopped, _state2);
+		}
+
 	}
 }
 

@@ -46,7 +46,7 @@ namespace ContactCleaner
 			}
 	
 			Message.Obtain(_mhandler,(int)MessageType.Finally).SendToTarget();
-			base.Run ();
+			base.Pause ();
 		}	
 
 		private void SearchDublicate (ICursor cur, Options options)
@@ -285,8 +285,7 @@ namespace ContactCleaner
 									Uri uri = Uri.WithAppendedPath(ContactsContract.Contacts.ContentLookupUri, lookupKey);
 									contactsUri[c]=uri;
 									c++;
-									//		tv.append("\r\n"+cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
-								} while(cur.MoveToNext());
+									} while(cur.MoveToNext());
 							}
 						} catch (System.Exception e) {
 							Log.Error("xxx",e.Message);
