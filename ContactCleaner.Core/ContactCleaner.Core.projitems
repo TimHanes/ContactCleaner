@@ -9,12 +9,13 @@
     <Import_RootNamespace>ContactCleaner.Core</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)BaseThread.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Basis\BaseThread.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)BusinessLogic\" />
     <Folder Include="$(MSBuildThisFileDirectory)DataLayer\" />
     <Folder Include="$(MSBuildThisFileDirectory)Model\" />
     <Folder Include="$(MSBuildThisFileDirectory)Repository\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Basis\" />
   </ItemGroup>
 </Project>

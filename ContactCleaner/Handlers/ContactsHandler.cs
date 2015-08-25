@@ -9,6 +9,7 @@ using Android.Provider;
 using Android.Util;
 using Android.Net;
 using ContactCleaner.Core;
+//using ContactCleaner.Models;
 using ContactCleaner.Models;
 
 namespace ContactCleaner
@@ -124,7 +125,7 @@ namespace ContactCleaner
 			if (fid > contact.Id) {
 				System.String fname = NameByUri (FoundUri [currentContactIndex]);
 				Message.Obtain (_mhandler, (int)MessageType.AddToLogView, "find:" + fid + "-" + fname + "\r\n").SendToTarget ();//append to tv
-				if (!App.Current.Popup.CheckBoxSave.Checked) {
+				if (!App.Instance.Popup.CheckBoxSave.Checked) {
 					Message.Obtain (_mhandler, (int)MessageType.ShowPopupForChooseAction, "Work with:" + contact.Name + "\r\n" + PhonesByCursor (cur) + "find:" + fname + "\r\n" + PhonesByUri (FoundUri [currentContactIndex])).SendToTarget ();//
 					this.Pause();
 				} else {

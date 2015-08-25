@@ -7,9 +7,9 @@ namespace ContactCleaner.Models
 	{
 		public Options()
 		{
-			ByName = App.Current.RelativeLayout.FindViewById<CheckBox> (Resource.Id.byname).Checked;
-			ByPhone = App.Current.RelativeLayout.FindViewById<CheckBox> (Resource.Id.byphone).Checked;
-			Advanced = App.Current.RelativeLayout.FindViewById<CheckBox> (Resource.Id.advanced).Checked;
+			ByName = App.Instance.RelativeLayout.FindViewById<CheckBox> (Resource.Id.byname).Checked;
+			ByPhone = App.Instance.RelativeLayout.FindViewById<CheckBox> (Resource.Id.byphone).Checked;
+			Advanced = App.Instance.RelativeLayout.FindViewById<CheckBox> (Resource.Id.advanced).Checked;
 		}
 
 		public bool ByName { get; set; }

@@ -7,13 +7,23 @@ namespace ContactCleaner
 {
 	public class App
 	{
-		private static readonly App _app = new App ();
+		private static readonly App instance = new App ();
 		public ProgressShower ProgressShower { get; set;}
 		public ViewGroup RelativeLayout { get; set;}
 		public Popup Popup { get; set;}
 
+		static App()
+		{}
+
 		private App()
-		{			
+		{}
+
+		public static App Instance
+		{
+			get
+			{
+				return instance;
+			}
 		}
 
 		public void Init (Activity activity)
@@ -26,14 +36,6 @@ namespace ContactCleaner
 			Button _buttonStart = activity.FindViewById<Button> (Resource.Id.btn);
 
 			_buttonStart.Click += (s,e) => (new ContactsHandler()).Start ();
-		}
-
-		public static App Current
-		{
-			get
-			{
-				return _app;
-			}
 		}
 	}
 }

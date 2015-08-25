@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseThreadTests.cs" />
+    <Compile Include="AppTests.cs" />
   </ItemGroup>
   <Import Project="..\ContactCleaner.Core\ContactCleaner.Core.projitems" Label="Shared" Condition="Exists('..\ContactCleaner.Core\ContactCleaner.Core.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
