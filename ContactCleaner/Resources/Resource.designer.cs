@@ -78,38 +78,41 @@ namespace ContactCleaner
 			// aapt resource value: 0x7f060005
 			public const int byphone = 2131099653;
 			
-			// aapt resource value: 0x7f060014
-			public const int checksave = 2131099668;
-			
 			// aapt resource value: 0x7f060015
-			public const int chvsave = 2131099669;
+			public const int checksave = 2131099669;
+			
+			// aapt resource value: 0x7f060016
+			public const int chvsave = 2131099670;
 			
 			// aapt resource value: 0x7f060000
 			public const int ltrel = 2131099648;
 			
+			// aapt resource value: 0x7f060010
+			public const int mbbtn1 = 2131099664;
+			
 			// aapt resource value: 0x7f060011
-			public const int mbbtn1 = 2131099665;
+			public const int mbbtn2 = 2131099665;
 			
 			// aapt resource value: 0x7f060012
-			public const int mbbtn2 = 2131099666;
+			public const int mbbtn3 = 2131099666;
 			
-			// aapt resource value: 0x7f060013
-			public const int mbbtn3 = 2131099667;
-			
-			// aapt resource value: 0x7f06000e
-			public const int mbedit1 = 2131099662;
-			
-			// aapt resource value: 0x7f060010
-			public const int mbedit2 = 2131099664;
-			
-			// aapt resource value: 0x7f06000c
-			public const int mbpbar = 2131099660;
+			// aapt resource value: 0x7f060014
+			public const int mbbtn4 = 2131099668;
 			
 			// aapt resource value: 0x7f06000d
-			public const int mbtext1 = 2131099661;
+			public const int mbedit1 = 2131099661;
 			
 			// aapt resource value: 0x7f06000f
-			public const int mbtext2 = 2131099663;
+			public const int mbedit2 = 2131099663;
+			
+			// aapt resource value: 0x7f060013
+			public const int mbpbar = 2131099667;
+			
+			// aapt resource value: 0x7f06000c
+			public const int mbtext1 = 2131099660;
+			
+			// aapt resource value: 0x7f06000e
+			public const int mbtext2 = 2131099662;
 			
 			// aapt resource value: 0x7f060004
 			public const int spinner = 2131099652;

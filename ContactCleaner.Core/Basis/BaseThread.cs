@@ -4,11 +4,12 @@ using System.Threading;
 namespace ContactCleaner.Core
 {
 	public class BaseThread {
+		
 		private Thread m_thread;
-		AutoResetEvent autoEvent;
+		ManualResetEvent autoEvent;
 
 		public BaseThread() {
-			autoEvent = new AutoResetEvent(false);
+			autoEvent = new ManualResetEvent(true);
 			m_thread = new Thread( Run );
 		}
 
@@ -23,18 +24,21 @@ namespace ContactCleaner.Core
 		}
 
 		public void Pause() {
-			autoEvent.WaitOne();
+			autoEvent.Reset();
+
 		}
 
 		public void Resume() {
 			autoEvent.Set();
+
 		}
 
 		protected virtual void Run()
 		{
-//			autoEvent.WaitOne();
-			Thread.Sleep (50);
-			autoEvent.Set();
+//			this.Pause ();
+			autoEvent.WaitOne();
+//
+//			this.Pause();
 		}
 	}
 }

@@ -11,23 +11,36 @@ using Android.Net;
 using ContactCleaner.Core;
 //using ContactCleaner.Models;
 using ContactCleaner.Models;
+using System.Threading;
 
 namespace ContactCleaner
 {
 	public class ContactsHandler : BaseThread
 	{
+		private Uri[] foundUri;
+		private int currentContactIndex;
 		private bool _mFinished = false;
 		Context _context = Application.Context;
-		public MessageHandler _mhandler;
+		private MessageHandler _mhandler;
 		ActionType _defaultAction = ActionType.None;
-		public int currentContactIndex = 0;
 
 		public ContactsHandler()
 		{
+			
 			_mhandler = new MessageHandler(this);
 		}
 
-		public Uri[] FoundUri { get; private set; }
+		public int CurrentContactIndex { 
+			get{				
+				return currentContactIndex;
+			}
+		}
+
+		public Uri[] FoundUri { 
+			get {	
+				return	foundUri;
+			}
+		}
 
 		override protected void Run()
 		{
@@ -44,10 +57,11 @@ namespace ContactCleaner
 			while (cur.MoveToNext () && !_mFinished) 
 			{
 				SearchDublicate (cur, options);
+				base.Run ();
 			}
 	
 			Message.Obtain(_mhandler,(int)MessageType.Finally).SendToTarget();
-			base.Pause ();
+
 		}	
 
 		private void SearchDublicate (ICursor cur, Options options)
@@ -76,8 +90,8 @@ namespace ContactCleaner
 			try {
 				System.String[] phones = PhonesByCursor (cur).Split ('\r', '\n');
 				for (int p = 0; p < phones.Length; p++) {
-					FoundUri = GetContactUrisByPhone (phones [p]);
-					if (FoundUri != null)
+					foundUri = GetContactUrisByPhone (phones [p]);
+					if (foundUri != null)
 						CheckContacts (contact, cur);
 				}
 			}
@@ -88,17 +102,17 @@ namespace ContactCleaner
 
 		private void CheckByName(Contact contact, ICursor cur)
 		{
-			FoundUri = GetContactsUriByName (contact.Name, false);
+			foundUri = GetContactsUriByName (contact.Name, false);
 			CheckContacts (contact, cur);
 		}
 
 		private void CheckByNameAndPhone(Contact contact, ICursor cur)
 		{
-			FoundUri = GetContactsUriByName (contact.Name, false);
+			foundUri = GetContactsUriByName (contact.Name, false);
 			CheckContacts (contact, cur);
 			System.String[] phones = PhonesByCursor (cur).Split ('\r', '\n');
 			for (int p = 0; p < phones.Length; p++) {
-				FoundUri = GetContactUrisByPhone (phones [p]);
+				foundUri = GetContactUrisByPhone (phones [p]);
 				CheckContacts (contact, cur);
 			}
 		}
@@ -112,8 +126,8 @@ namespace ContactCleaner
 			
 		private void CheckContacts(Contact contact,ICursor cur)
 		{
-			if (FoundUri != null) {
-				for ( currentContactIndex = 0; currentContactIndex <= FoundUri.Length - 1; currentContactIndex++) {
+			if (foundUri != null) {
+				for ( currentContactIndex = 0; currentContactIndex <= foundUri.Length - 1; currentContactIndex++) {
 					CompaireContact(contact, cur);	
 				}
 			}
@@ -121,23 +135,24 @@ namespace ContactCleaner
 
 		private void CompaireContact(Contact contact, ICursor cur)
 		{
-			int fid = IdByUri (FoundUri [currentContactIndex]);
+			int fid = IdByUri (foundUri [currentContactIndex]);
 			if (fid > contact.Id) {
-				System.String fname = NameByUri (FoundUri [currentContactIndex]);
+				System.String fname = NameByUri (foundUri [currentContactIndex]);
 				Message.Obtain (_mhandler, (int)MessageType.AddToLogView, "find:" + fid + "-" + fname + "\r\n").SendToTarget ();//append to tv
 				if (!App.Instance.Popup.CheckBoxSave.Checked) {
-					Message.Obtain (_mhandler, (int)MessageType.ShowPopupForChooseAction, "Work with:" + contact.Name + "\r\n" + PhonesByCursor (cur) + "find:" + fname + "\r\n" + PhonesByUri (FoundUri [currentContactIndex])).SendToTarget ();//
+					Message.Obtain (_mhandler, (int)MessageType.ShowPopupForChooseAction, "Work with:" + contact.Name + "\r\n" + PhonesByCursor (cur) + "find:" + fname + "\r\n" + PhonesByUri (foundUri [currentContactIndex])).SendToTarget ();//
 					this.Pause();
+					base.Run ();
 				} else {
 
 					switch (_defaultAction) {
 					case ActionType.None:
 						break;
 					case ActionType.Delete:
-						ContactDelete(FoundUri[currentContactIndex]);
+						ContactDelete(foundUri[currentContactIndex]);
 						break;
 					case ActionType.Join:
-						ContactJoin(FoundUri[currentContactIndex]);
+						ContactJoin(foundUri[currentContactIndex]);
 						break;
 					case ActionType.Ignore:
 						break;
@@ -222,8 +237,11 @@ namespace ContactCleaner
 	
  		public Uri[] GetContactsUriByName(System.String selname,bool ignorecase)
 		{
-				var loader = new CursorLoader (_context, ContactsContract.Contacts.ContentUri, null,
-					             (!ignorecase) ? (ContactsContract.Contacts.InterfaceConsts.DisplayName + " LIKE '" + selname + "'") : ("UPPER(" + ContactsContract.Contacts.InterfaceConsts.DisplayName + ") LIKE UPPER('" + selname + "')"), null, null);
+			selname = selname.Replace ("'", "''"); 
+			string _linq1 = System.String.Concat (ContactsContract.Contacts.InterfaceConsts.DisplayName, " LIKE '", selname, "'");
+			string _linq2 = System.String.Concat ("UPPER(", ContactsContract.Contacts.InterfaceConsts.DisplayName, ") LIKE UPPER('", selname, "')");
+			var loader = new CursorLoader (_context, ContactsContract.Contacts.ContentUri, null, (!ignorecase) ? (_linq1) : (_linq2), null, null);
+
 				ICursor cur;
 				cur = (ICursor)loader.LoadInBackground ();
 

@@ -11,6 +11,10 @@ namespace ContactCleaner
 	{
 		private TextView _logView;
 		private ContactsHandler _contactsHandler;
+		EventHandler _onButtonJoin;
+		EventHandler _onButtonIgnore;
+		EventHandler _onButtonDelete;
+		private bool _flagClickButtons;
 
 		public MessageHandler(ContactsHandler contactsHandler)
 		{
@@ -35,7 +39,7 @@ namespace ContactCleaner
 				ShowProgress(msg);
 				break;
 			case (int)MessageType.Finally:
-				Finally(msg);
+				Finally();
 				break;
 			case (int)MessageType.SetProgressBar:
 				SetProgressBar(msg);
@@ -49,19 +53,28 @@ namespace ContactCleaner
 			App.Instance.Popup.ProgressBar.Progress = msg.Arg2;
 		}
 
-		private void Finally(Message msg)
+		private void Finally()
 		{
 			App.Instance.Popup.MsgBoxClose ();
-			App.Instance.ProgressShower.Dismiss ();
+//			App.Instance.ProgressShower.Dismiss ();
 		}
 
 		private void ShowProgress(Message msg)
 		{
-			App.Instance.ProgressShower.Max = msg.Arg1;
-			App.Instance.ProgressShower.Progress = msg.Arg2;
-			App.Instance.ProgressShower.SetMessage (msg.Obj.ToString ());
-			App.Instance.ProgressShower.Show ();
-			App.Instance.Popup.MsgBoxProgress("Processing...",msg.Obj.ToString(),true);
+			EventHandler cancel = delegate {
+				_contactsHandler.Pause();
+				Finally();
+			};
+			
+//			App.Instance.ProgressShower.Progress = msg.Arg2;
+
+//			while (App.Instance.ProgressShower.Progress != msg.Arg2) {
+//				App.Instance.ProgressShower.Progress = msg.Arg2;
+//			}
+//				App.Instance.ProgressShower.Max = msg.Arg1;
+//			App.Instance.ProgressShower.SetMessage (msg.Obj.ToString ());
+//			App.Instance.ProgressShower.Show ();
+			App.Instance.Popup.MsgBoxProgress("Processing...",msg.Obj.ToString(),true, msg.Arg1, msg.Arg2, cancel);
 		}
 
 		private void SetTextToLogView(Message msg)
@@ -74,29 +87,47 @@ namespace ContactCleaner
 			_logView.Append (msg.Obj.ToString ());
 		}
 
+
 		private void ShowPopupForChooseAction(Message msg)
 		{
-			App.Instance.ProgressShower.Cancel ();
+			_flagClickButtons = true;
 
-			EventHandler _onButtonDelete = delegate {
+			_onButtonDelete = delegate { if (_flagClickButtons){
+
 				App.Instance.Popup.MsgBoxClose();
+
+
 				_contactsHandler.ContactDelete(
-					_contactsHandler.FoundUri[_contactsHandler.currentContactIndex]);
-				_contactsHandler.Resume();
+					_contactsHandler.FoundUri[_contactsHandler.CurrentContactIndex]);
+					_contactsHandler.Resume();
+					_flagClickButtons = !_flagClickButtons;
+				}
 			};
 
-			EventHandler _onButtonJoin = delegate {
+			_onButtonJoin = delegate { 
+				if (_flagClickButtons){
+
 				App.Instance.Popup.MsgBoxClose();
 				_contactsHandler.ContactJoin (
-					_contactsHandler.FoundUri [_contactsHandler.currentContactIndex]);
+					_contactsHandler.FoundUri [_contactsHandler.CurrentContactIndex]);
 				_contactsHandler.Resume();
+					_flagClickButtons = !_flagClickButtons;
+				}
 			};
 
-			EventHandler _onButtonIgnore = delegate {
+			_onButtonIgnore = delegate {
+				if (_flagClickButtons){
+
 				App.Instance.Popup.MsgBoxClose();
 				_contactsHandler.ContactIgnore();
-				_contactsHandler.Resume();
+					_contactsHandler.Resume();
+					_flagClickButtons = !_flagClickButtons;
+				}
 			};
+
+
+				
+//			App.Instance.ProgressShower.Cancel ();
 
 			App.Instance.Popup.MsgBoxButtons ("What do with:", msg.Obj.ToString () + " ?", "Delete", "Join", "Ignore", _onButtonDelete, _onButtonJoin, _onButtonIgnore, true);
 		}

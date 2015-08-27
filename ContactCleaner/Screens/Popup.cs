@@ -15,6 +15,7 @@ namespace ContactCleaner
 		public Button Button1 { get; set; }
 		public Button Button2 { get; set; }
 		public Button Button3 { get; set; }
+		public Button Button4 { get; set; }
 		public EditText Edit1 { get; set; }
 		public EditText Edit2 { get; set; }
 		public ProgressBar ProgressBar { get; set; }
@@ -27,6 +28,7 @@ namespace ContactCleaner
  			Dialog.SetContentView(Resource.Layout.Popup);//popup view is the layout you created
 			Text1 = (TextView)Dialog.FindViewById(Resource.Id.mbtext1);
 			Text2 = (TextView)Dialog.FindViewById(Resource.Id.mbtext2);
+			Button4=(Button)Dialog.FindViewById(Resource.Id.mbbtn4);
 			Button3=(Button)Dialog.FindViewById(Resource.Id.mbbtn3);
 			Button1=(Button)Dialog.FindViewById(Resource.Id.mbbtn1);
 			Button2=(Button)Dialog.FindViewById(Resource.Id.mbbtn2);
@@ -41,6 +43,7 @@ namespace ContactCleaner
 		{
 			Text1.Visibility = ViewStates.Gone;
 			Text2.Visibility = ViewStates.Gone;
+			Button4.Visibility = ViewStates.Gone;
 			Button3.Visibility = ViewStates.Gone;
 			Button1.Visibility = ViewStates.Gone;//=(Button)dialog.findViewById(R.id.mbbtn1);
 			Button2.Visibility = ViewStates.Gone;//=(Button)dialog.findViewById(R.id.mbbtn2);
@@ -286,14 +289,20 @@ namespace ContactCleaner
 			}
 		}
 
-		public void MsgBoxProgress(String title,String msg,bool horizontal)
+		public void MsgBoxProgress(String title,String msg,bool horizontal, int max, int progress, EventHandler btn4lst)
 		{
 			invisible();
 			Dialog.SetTitle(title);
 			Text1.Visibility = ViewStates.Visible;
 			Text1.SetText(msg, TextView.BufferType.Normal);
 			ProgressBar.Visibility = ViewStates.Visible;
-
+			ProgressBar.HorizontalScrollBarEnabled = horizontal;
+			ProgressBar.Progress = progress;
+			ProgressBar.Max = max;
+			ProgressBar.Indeterminate = false;
+			Button4.Visibility = ViewStates.Visible;
+			Button4.SetText("CANCEL", TextView.BufferType.Normal);
+			Button4.Click += btn4lst;
 			try
 			{
 				Dialog.Show();
